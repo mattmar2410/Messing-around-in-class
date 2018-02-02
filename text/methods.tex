@@ -1,5 +1,24 @@
+The data for this lab came from a HPGe detector collected by Dr. Ross Barnowski.
+The sources used to generate the spectrum are shown in Table \ref{table:source}.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{l|r}
+      \textbf{Source}\\
+      \hline
+      $^{241}$Am\\
+      $^{133}$Ba\\
+      $^{60}$Co\\
+      $^{137}$Cs\\
+      $^{152}$Eu\\
+    \end{tabular}
+    \caption{Gamma-ray lines used in the calibration}
+    \label{table:source}
+  \end{center}
+\end{table}
+
 The energy calibration was performed using a two-point linear fit between
-$^{137}$Cs and $^{241}$Am. To perform the calibration, a program searched
+$^{137}$Cs and $^{241}$Am. To perform the calibration, a python program searched
 the raw spectrum data of $^{137}$Cs and $^{241}$Am looking for
 the largest peaks within the spectrum. The program iterated over the spectrum for the
 number of gamma-ray energies present since there should only be peaks corresponding
@@ -12,7 +31,7 @@ the whole peak, the program fit a Gaussian and a linear model to this portion of
 After modeling the data with the Gaussian and linear model, the peak was
 set to zero so during the next iteration the same peak is not found again.
 The width of the peak was determined from first analyzing the spectrum and establishing
-the average width of each peak. 
+the average width of each peak.
 
 Once all of the peaks were discovered, polyfit within python was used to
 plot a linear line. The inputs for polyfit were the position of the peak and
