@@ -13,6 +13,7 @@
 \usepackage{graphicx}   % For images
 %mhchem is beneficial for Nuke Eng.
 \usepackage[version=3]{mhchem} % For nuclide formatting
+\usepackage{float}
 
 % All images/figures will be stored in the images folder.
 % Specify that here so pdflatex knows where to look for images.
@@ -31,6 +32,11 @@
 
 % The *'s next so section/subsection definitions suppresses numbering
 % \section*{Introduction}
+% The *'s next so section/subsection definitions suppresses numbering
+\section*{Abstract}
+\label{sec:abstract}
+\input{text/abstract.tex}
+
 \section{Introduction}
 \label{sec:intro}
 \input{text/introduction.tex}

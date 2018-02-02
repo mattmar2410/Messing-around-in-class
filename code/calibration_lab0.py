@@ -54,6 +54,13 @@ Cs137 = data[:,2]
 Co60 = data[:,3]
 Eu152 = data[:,4]
 calibrate_data = Ba133
+fig = plt.figure()
+plt.semilogy(Ba133)
+plt.xlim(0, 2000)
+plt.ylabel("Counts")
+plt.xlabel("Energy(keV)")
+plt.title("Raw Energy Plot of Ba133")
+plt.savefig('../images/Raw_spectrum.png')
 '''
 Some a priori knowledge is neeeded about the spectrum
 beforehand. The data needs to be cleaned before running this section.
@@ -79,7 +86,7 @@ from the energy calibration.
 
 from calibration import spectrum_calibration
 slope, intercept = spectrum_calibration(channel_width, energy_list, data_2_calibrate)
-
+print(slope, intercept)
 calibrated_channel = []
 for i in range(0,len(calibrate_data)):
     calibrated_channel += [i*slope+ intercept]
@@ -128,11 +135,8 @@ while i < len(energy_spectrum):
     pars['g1_amplitude'].set(max(gauss_y), min=max(gauss_y)-10)
     mod = mod + line_mod
     out  = mod.fit(y, pars, x=x)
-    plt.plot(x, fit_channel )
-    plt.plot(x, out.best_fit, '--k')
-    plt.show()
     gauss_x = []; gauss_y = []; fit_channel = []
-    print(out.fit_report(min_correl=10))
+    #print(out.fit_report(min_correl=10))
     for key in out.params:
         print(key, "=", out.params[key].value, "+/-", out.params[key].stderr)
 
@@ -157,7 +161,7 @@ for x, y in zip(energy_spectrum, energy_list_2):
 plt.semilogy(calibrated_channel, calibrate_data, 'k', zorder = 0)
 plt.ylabel("Counts")
 plt.xlabel("Energy(keV)")
-plt.title("Calibrated Energy Plot")
+plt.title("Calibrated Energy Plot of Ba133")
 #plt.legend()
 plt.savefig('../images/Ba133_calibrated.png')
 #argmax returns the position in the array where maximum occurs

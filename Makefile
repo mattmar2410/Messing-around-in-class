@@ -22,7 +22,10 @@ validate :
 
 # Run tests on analysis code
 test :
-	nosetests --no-byte-compile test/*
+	pytest
+	#pytest looks for a folder called test. if there is not a folder called test,
+	#it will not work.
+	#The file must be named test_{filename}.py
 
 # Automate running the analysis code
 analysis :

@@ -5,6 +5,7 @@ def spectrum_calibration(channel_width, energy_list, data_2_calibrate):
     #from modelling import gauss
     import statsmodels.api as sm
     from lmfit.models import GaussianModel
+    from lmfit.models import LinearModel
 
     '''
     The while loop goes through and identifies the largest peak in the
@@ -30,14 +31,21 @@ def spectrum_calibration(channel_width, energy_list, data_2_calibrate):
             data_2_calibrate[iterator] = 0
             iterator += 1
         i += 1
-        mod = GaussianModel()
+        mod  = GaussianModel(prefix='g1_')
+        line_mod = LinearModel(prefix='line')
         pars = mod.guess(y, x=x)
+        pars.update(line_mod.make_params(intercept=y.min(), slope=0))
+        pars.update( mod.make_params())
+        pars['g1_center'].set(gauss_x[np.argmax(gauss_y)], min=gauss_x[np.argmax(gauss_y)]\
+        - 3)
+        pars['g1_sigma'].set(3, min=0.25)
+        pars['g1_amplitude'].set(max(gauss_y), min=max(gauss_y)-10)
+        mod = mod + line_mod
         out  = mod.fit(y, pars, x=x)
-        plt.plot(x, fit_channel )
-        plt.plot(x, out.best_fit, '--k')
-        plt.show()
         gauss_x = []; gauss_y = []; fit_channel = []
-        print(out.fit_report(min_correl=10))
+        #print(out.fit_report(min_correl=10))
+        for key in out.params:
+            print(key, "=", out.params[key].value, "+/-", out.params[key].stderr)
 
     '''
     sorting channel number so the correct channel number corresponds with
