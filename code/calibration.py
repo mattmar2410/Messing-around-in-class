@@ -44,8 +44,8 @@ def spectrum_calibration(channel_width, energy_list, data_2_calibrate):
         out  = mod.fit(y, pars, x=x)
         gauss_x = []; gauss_y = []; fit_channel = []
         #print(out.fit_report(min_correl=10))
-        for key in out.params:
-            print(key, "=", out.params[key].value, "+/-", out.params[key].stderr)
+        #for key in out.params:
+        #    print(key, "=", out.params[key].value, "+/-", out.params[key].stderr)
 
     '''
     sorting channel number so the correct channel number corresponds with

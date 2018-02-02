@@ -54,6 +54,8 @@ Cs137 = data[:,2]
 Co60 = data[:,3]
 Eu152 = data[:,4]
 calibrate_data = Ba133
+
+
 fig = plt.figure()
 plt.semilogy(Ba133)
 plt.xlim(0, 2000)
@@ -86,7 +88,6 @@ from the energy calibration.
 
 from calibration import spectrum_calibration
 slope, intercept = spectrum_calibration(channel_width, energy_list, data_2_calibrate)
-print(slope, intercept)
 calibrated_channel = []
 for i in range(0,len(calibrate_data)):
     calibrated_channel += [i*slope+ intercept]
@@ -137,8 +138,8 @@ while i < len(energy_spectrum):
     out  = mod.fit(y, pars, x=x)
     gauss_x = []; gauss_y = []; fit_channel = []
     #print(out.fit_report(min_correl=10))
-    for key in out.params:
-        print(key, "=", out.params[key].value, "+/-", out.params[key].stderr)
+    #for key in out.params:
+    #    print(key, "=", out.params[key].value, "+/-", out.params[key].stderr)
 
 
 energy_channel = list(zip(channel_max_list, energy_list_2))
